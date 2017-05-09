@@ -1,0 +1,7 @@
+msgctxt "#30000"
+msgid "Spotify Connect Web Host"
+msgstr "Spotify Connect Web Host"
+
+msgctxt "#30001"
+msgid "Artist"
+msgstr "Künstler"

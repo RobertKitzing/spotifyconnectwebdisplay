@@ -1,14 +1,15 @@
 import os
 import xbmc
 import xbmcaddon
+import xbmcplugin
 import pyxbmct
 import requests
 import shutil
 
-_addon = xbmcaddon.Addon()
-_addon_path = _addon.getAddonInfo('path')
+_addonSettings = xbmcaddon.Addon(id='plugin.audio.spotifconnectwebdisplay')
+_language = _addonSettings.getLocalizedString
+baseUrl = _addonSettings.getSetting("connectWebHost")
 
-baseUrl = 'http://libreelec:4000'
 apiUrlMetadata = '/api/info/metadata'
 apiUrlControlSpotify = '/api/playback/'
 apiUrlImageUrl = '/api/info/image_url/'
