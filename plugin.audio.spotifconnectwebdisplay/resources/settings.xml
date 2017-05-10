@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
-  <setting label="30000" id="connectWebHost" type="text" value="test" default="http://libreelec:4000"/>
+  <setting label="30000" id="connectWebHost" type="text" value="test" default="http://localhost:4000"/>
 </settings>

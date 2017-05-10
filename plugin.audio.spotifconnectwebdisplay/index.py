@@ -55,7 +55,7 @@ class MyAddon(pyxbmct.AddonDialogWindow):
             self.image = pyxbmct.Image(baseUrl + apiUrlImageUrl + metadata['cover_uri'])
             self.placeControl(self.image, 0, 0, 2, 2)
         except Exception as e:
-            self.errorLabel.setLabel('Spotify Connect Web Server unavalible') #, Reason: \n {}'.format(e))
+            self.errorLabel.setLabel('Spotify Connect Web Server unavalible')
     def createButtons(self):
         #Pause Button
         self.buttonPause = pyxbmct.Button('Pause')
@@ -78,9 +78,9 @@ class MyAddon(pyxbmct.AddonDialogWindow):
         #self.radioRepeat.setSelected(True)
         #self.placeControl(self.radioRepeat, 5, 3)
         #refresh Track Button
-#        self.buttonRefresh = pyxbmct.Button('Refresh')
-#        self.placeControl(self.buttonRefresh, 4, 3)
-#        self.connect(self.buttonRefresh, self.update_infos)
+        #self.buttonRefresh = pyxbmct.Button('Refresh')
+        #self.placeControl(self.buttonRefresh, 4, 3)
+        # self.connect(self.buttonRefresh, self.update_infos)
         self.setNavigation()
     def setNavigation(self):
         self.setFocus(self.buttonNext)
@@ -100,7 +100,6 @@ class MyAddon(pyxbmct.AddonDialogWindow):
 
 if __name__ == '__main__':
     window = MyAddon('Spotify Connect Web Display')
-    #window.doModal()
     while window.loop:
         window.updateInfoLabels()
         window.show()
@@ -108,33 +107,3 @@ if __name__ == '__main__':
     # Destroy the instance explicitly because
     # underlying xbmcgui classes are not garbage-collected on exit.
     del window
-
-#{status
-#  "active": true,
-#  "logged_in": true,
-#  "playing": false,
-#  "repeat": true,
-#  "shuffle": true
-#}
-
-#{metadata
-#  "album_name": "Does You Inspire You",
-#  "album_uri": "spotify:album:3JuIBAoHi6gUmS3tgF4CPg",
-#  "artist_name": "Chairlift",
-#  "artist_uri": "spotify:artist:7hAolICGSgXJuM6DUpK5rp",
-#  "context_uri": "spotify:user:spotify:playlist:37i9dQZF1DWYJeWl6ior4d",
-#  "cover_uri": "spotify:image:af1e40ba897686401c9b0db0931ac9176f6e03e2",
-#  "data0": "Indie Klassiker",
-#  "duration": 241466,
-#  "track_name": "Bruises",
-#  "track_uri": "spotify:track:4mdyVTV7Tr5YDFnD2kvSM4",
-#  "volume": 52428
-#}
-#status = requests.get(baseUrl + '/api/info/status').json()
-#metadata = requests.get(baseUrl + '/api/info/metadata').json()
-#albumIMG = requests.get(baseUrl + '/api/info/image_url/' + metadata['cover_uri'])
-        #try:
-        #    mdr = requests.get(baseUrl + apiUrlMetadata)
-        #    mdr.raise_for_status()
-        #    metadata = mdr.json()
-        #Artist
