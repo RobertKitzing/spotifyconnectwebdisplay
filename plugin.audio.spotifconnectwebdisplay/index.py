@@ -18,7 +18,7 @@ apiUrlImageUrl = '/api/info/image_url/'
 class MyAddon(pyxbmct.AddonDialogWindow):
     def __init__(self, title=''):
         super(MyAddon, self).__init__(title)
-        self.setGeometry(1024, 720, 9, 4)
+        self.setGeometry(1000, 563, 3, 6)
         self.createInfoLabels()
         self.updateInfoLabels()
         self.createButtons()
@@ -30,56 +30,44 @@ class MyAddon(pyxbmct.AddonDialogWindow):
         self.close()
     def createInfoLabels(self):
         #Artist Infos
-        self.artistLabel = pyxbmct.Label('')
-        self.placeControl(self.artistLabel, 1, 0)
         self.artistName = pyxbmct.Label('')
-        self.placeControl(self.artistName, 1, 1)
-        #Album Infos
-        self.albumLabel = pyxbmct.Label('')
-        self.placeControl(self.albumLabel, 5, 0)
-        self.albumName = pyxbmct.Label('')
-        self.placeControl(self.albumName, 5, 1)
+        self.placeControl(self.artistName, 0, 2, 1, 4)
         #Track Infos
-        self.trackLabel = pyxbmct.Label('')
-        self.placeControl(self.trackLabel, 2, 0)
         self.trackName = pyxbmct.Label('')
-        self.placeControl(self.trackName, 2, 1)
-        #Cover
-        self.coverImage = pyxbmct.Image('')
-        self.placeControl(self.coverImage, 3, 1, 3, 2)
+        self.placeControl(self.trackName, 1, 2, 1, 4)
+        #Album Infos
+        self.albumName = pyxbmct.Label('')
+        self.placeControl(self.albumName, 2, 2, 1, 4)
         #Error
         self.errorLabel = pyxbmct.Label('')
-        self.placeControl(self.errorLabel, 0, 0, 3, 0)
+        self.placeControl(self.errorLabel, 0, 0, 1, 1)
     def updateInfoLabels(self):
         try:
             metadata = requests.get(baseUrl + apiUrlMetadata).json()
             self.errorLabel.setLabel('')
             #Artist
-            self.artistLabel.setLabel('Artist')
             self.artistName.setLabel(str(metadata['artist_name']))
             #Album
-            self.albumLabel.setLabel('Album')
             self.albumName.setLabel(str(metadata['album_name']))
             #Track
-            self.trackLabel.setLabel('Track')
             self.trackName.setLabel(str(metadata['track_name']))
             #Cover
             self.image = pyxbmct.Image(baseUrl + apiUrlImageUrl + metadata['cover_uri'])
-            self.placeControl(self.image, 3, 1, 2, 1)
+            self.placeControl(self.image, 0, 0, 2, 2)
         except Exception as e:
             self.errorLabel.setLabel('Spotify Connect Web Server unavalible') #, Reason: \n {}'.format(e))
     def createButtons(self):
         #Pause Button
         self.buttonPause = pyxbmct.Button('Pause')
-        self.placeControl(self.buttonPause, 1, 3)
+        self.placeControl(self.buttonPause, 0, 5)
         self.connect(self.buttonPause, lambda: self.controlspotify('pause'))
         #Play Button
         self.buttonPlay = pyxbmct.Button('Play')#
-        self.placeControl(self.buttonPlay, 2, 3)
+        self.placeControl(self.buttonPlay, 1, 5)
         self.connect(self.buttonPlay,  lambda: self.controlspotify('play'))
         #Next Track Button
         self.buttonNext = pyxbmct.Button('Next')
-        self.placeControl(self.buttonNext, 3, 3)
+        self.placeControl(self.buttonNext, 2, 5)
         self.connect(self.buttonNext,  lambda: self.controlspotify('next'))
         #Shuffle Switch
         #self.radioShuffle = pyxbmct.RadioButton('Shuffle')
@@ -116,7 +104,7 @@ if __name__ == '__main__':
     while window.loop:
         window.updateInfoLabels()
         window.show()
-        xbmc.sleep(300)
+        xbmc.sleep(1000)
     # Destroy the instance explicitly because
     # underlying xbmcgui classes are not garbage-collected on exit.
     del window
