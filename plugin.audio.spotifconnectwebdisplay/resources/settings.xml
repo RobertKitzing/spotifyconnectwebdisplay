@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
-  <setting label="30000" id="connectWebHost" type="text" value="test" default="http://localhost:4000"/>
+  <setting label="30001" id="connectWebHost" type="text" default="libreelec"/>
+  <setting label="30002" id="connectWebHostPort" type="number" default="4000"/>
+  <setting label="30003" id="refreshRate" type="number" default="1000"/>
 </settings>

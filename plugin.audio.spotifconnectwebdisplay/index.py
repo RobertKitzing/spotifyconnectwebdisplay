@@ -8,7 +8,10 @@ import shutil
 
 _addonSettings = xbmcaddon.Addon(id='plugin.audio.spotifconnectwebdisplay')
 _language = _addonSettings.getLocalizedString
-baseUrl = _addonSettings.getSetting("connectWebHost")
+host = _addonSettings.getSetting("connectWebHost")
+port = _addonSettings.getSetting("connectWebHostPort")
+refreshRate = _addonSettings.getSetting("refreshRate")
+baseUrl = 'http://' + host + ':' + port
 
 apiUrlMetadata = '/api/info/metadata'
 apiUrlControlSpotify = '/api/playback/'
@@ -40,7 +43,7 @@ class MyAddon(pyxbmct.AddonDialogWindow):
         self.placeControl(self.albumName, 2, 2, 1, 4)
         #Error
         self.errorLabel = pyxbmct.Label('')
-        self.placeControl(self.errorLabel, 0, 0, 1, 1)
+        self.placeControl(self.errorLabel, 0, 0, 1, 4)
     def updateInfoLabels(self):
         try:
             metadata = requests.get(baseUrl + apiUrlMetadata).json()
@@ -55,7 +58,7 @@ class MyAddon(pyxbmct.AddonDialogWindow):
             self.image = pyxbmct.Image(baseUrl + apiUrlImageUrl + metadata['cover_uri'])
             self.placeControl(self.image, 0, 0, 2, 2)
         except Exception as e:
-            self.errorLabel.setLabel('Spotify Connect Web Server unavalible')
+            self.errorLabel.setLabel('Spotify Connect Web Server unavalible: ' + baseUrl) #, Reason: \n {}'.format(e))
     def createButtons(self):
         #Pause Button
         self.buttonPause = pyxbmct.Button('Pause')
@@ -78,9 +81,9 @@ class MyAddon(pyxbmct.AddonDialogWindow):
         #self.radioRepeat.setSelected(True)
         #self.placeControl(self.radioRepeat, 5, 3)
         #refresh Track Button
-        #self.buttonRefresh = pyxbmct.Button('Refresh')
-        #self.placeControl(self.buttonRefresh, 4, 3)
-        # self.connect(self.buttonRefresh, self.update_infos)
+#        self.buttonRefresh = pyxbmct.Button('Refresh')
+#        self.placeControl(self.buttonRefresh, 4, 3)
+#        self.connect(self.buttonRefresh, self.update_infos)
         self.setNavigation()
     def setNavigation(self):
         self.setFocus(self.buttonNext)
@@ -107,3 +110,25 @@ if __name__ == '__main__':
     # Destroy the instance explicitly because
     # underlying xbmcgui classes are not garbage-collected on exit.
     del window
+
+#{status
+#  "active": true,
+#  "logged_in": true,
+#  "playing": false,
+#  "repeat": true,
+#  "shuffle": true
+#}
+
+#{metadata
+#  "album_name": "Does You Inspire You",
+#  "album_uri": "spotify:album:3JuIBAoHi6gUmS3tgF4CPg",
+#  "artist_name": "Chairlift",
+#  "artist_uri": "spotify:artist:7hAolICGSgXJuM6DUpK5rp",
+#  "context_uri": "spotify:user:spotify:playlist:37i9dQZF1DWYJeWl6ior4d",
+#  "cover_uri": "spotify:image:af1e40ba897686401c9b0db0931ac9176f6e03e2",
+#  "data0": "Indie Klassiker",
+#  "duration": 241466,
+#  "track_name": "Bruises",
+#  "track_uri": "spotify:track:4mdyVTV7Tr5YDFnD2kvSM4",
+#  "volume": 52428
+#}
